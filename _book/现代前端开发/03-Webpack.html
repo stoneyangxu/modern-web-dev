@@ -1,0 +1,1969 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>现代前端开发 - Webpack</title>
+
+    <meta charset="UTF-8"/>
+
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+
+    <meta name="HandheldFriendly" content="true"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+    <link href="../asset/gitbook/style.css" type="text/css" rel="stylesheet"/>
+    <link href="../asset/gitbook/istyle.css" type="text/css" rel="stylesheet"/>
+
+    <style type="text/css">
+        
+            span.md_line{margin-bottom:0.5em; display:block; line-height:1.89}
+            .md_line br{ display: none;}
+            
+    </style>
+
+    <script>
+        var flowchat_options = {
+            'x': 0, 'y': 0, 'line-width': 1, 'line-length': 50, 'text-margin': 10, 'font-size': 13,
+            'font-color': '#3c3c3c', 'line-color': '#666666', 'element-color': '#666666', 'fill': 'transparent',
+            'yes-text': 'yes', 'no-text': 'no', 'arrow-end': 'block', 'class': 'flowchart', 'scale': 1,
+            'symbols': { 'start': {}, 'end': {}, 'condition': {}, 'inputoutput': {}, 'operation': {}, 'subroutine': {}}
+        }
+    </script>
+    <script type="text/javascript" src="../asset/other/raphael-min.js"></script>
+    <script type="text/javascript" src="../asset/other/flowchart.js"></script>
+    <script type="text/javascript" src="../asset/other/echarts.min.js"></script>
+
+
+</head>
+
+<body>
+
+
+
+
+
+<div data-basepath="/service/gitbook" class="book">
+    <div class="book-summary">
+        <ul class="summary">
+            <li>
+                <a href="../index.html">web-dev</a>
+            </li>
+            <li class="divider"></li>
+            
+                
+                
+    
+    <li data-level="1" class="chapter" data-path="现代前端开发/index.html">
+        
+        
+        <a href="#" ><b>1</b> 现代前端开发</a>
+        
+            
+                    
+                        <ul class="articles">
+                            
+                                
+    
+    <li data-level="1.1" class="chapter" data-path="现代前端开发/01-概述.html">
+        
+        
+        <a href="../现代前端开发/01-概述.html" ><b>1.1</b> 现代前端开发 - 概述</a>
+        
+    </li>
+
+                            
+                                
+    
+    <li data-level="1.2" class="chapter" data-path="现代前端开发/02-前端工程化.html">
+        
+        
+        <a href="../现代前端开发/02-前端工程化.html" ><b>1.2</b> 现代前端开发 - 前端工程化</a>
+        
+    </li>
+
+                            
+                                
+    
+    <li data-level="1.3" class="chapter active" data-path="现代前端开发/03-Webpack.html">
+        
+        
+        <a href="../现代前端开发/03-Webpack.html" ><b>1.3</b> 现代前端开发 - Webpack</a>
+        
+    </li>
+
+                            
+                                
+    
+    <li data-level="1.4" class="chapter" data-path="现代前端开发/04-HTML5 & CSS5 & Flex & HTTP2 & Catch.html">
+        
+        
+        <a href="../现代前端开发/04-HTML5 & CSS5 & Flex & HTTP2 & Catch.html" ><b>1.4</b> 现代前端开发 - HTML5 & CSS3 & Flex布局 & WebSocket & Catch & HTTP2</a>
+        
+    </li>
+
+                            
+                        </ul>
+                    
+                
+        
+    </li>
+
+            
+        </ul>
+
+    </div>
+
+    <div class="book-body">
+        <div class="body-inner">
+
+            <div class="book-header" role="navigation">
+                <h1>
+                    <a href="../index.html" > web-dev</a>
+                </h1>
+            </div>
+
+            <div tabindex="-1" class="page-wrapper">
+                <div class="page-inner">
+                    <h2 class="post_title"> 现代前端开发 - Webpack </h2>
+                    <div class="post_body"> <h1 id="toc_0">Webpack</h1>
+
+<h2 id="toc_1">Webpack是什么?</h2>
+
+<p class="md_block">
+    <span class="md_line">Webpack是一个现代化的<strong>打包模块化JavaScript</strong>的工具, 在Webpack中<strong>一切皆模块</strong>, 通过<strong>Loader转换文件</strong>, 通过<strong>Plugin注入钩子</strong>, 最后输出<strong>多个模块组合成的文件</strong>.</span>
+</p>
+
+
+<p class="md_block md_has_block_below md_has_block_below_img">
+    <span class="md_line">Webpack是当前最主流的工程化工具, 借助庞大的生态系统, 提供了<strong>开发/构建/生产</strong>环境下的辅助功能. </span>
+</p>
+
+<img onerror="this.src='../../现代前端开发/_image/2018-01-14-19-01-22.jpg';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-14-19-01-22.jpg" alt="" title="" ><img onerror="this.src='../../现代前端开发/_image/2018-01-14-19-00-05.jpg';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-14-19-00-05.jpg" alt="" title="" >
+<blockquote>
+
+<p class="md_block">
+    <span class="md_line">https://webpack.js.org/</span>
+</p>
+
+</blockquote>
+
+<h2 id="toc_2">Webpack的优点</h2>
+
+<ul>
+<li>专注于处理模块化项目, 能够开箱即用, 一步到位</li>
+<li>可通过Plugin扩展, 完整好用又不失灵活</li>
+<li>使用场景不局限于Web开发</li>
+<li>社区庞大活跃</li>
+<li>具备良好的开发体验</li>
+</ul>
+
+<h2 id="toc_3">安装Webpack</h2>
+
+<p class="md_block">
+    <span class="md_line">Webpack只作为构建工具, 不会出现在最终的运行环境中, 所以它的安装方式有两种: <strong>全局安装</strong>或<strong>本地安装</strong></span>
+</p>
+
+
+<h3 id="toc_4">全局安装</h3>
+
+<p class="md_block">
+    <span class="md_line">全局安装后, webpack可以作为本地应用被执行</span>
+</p>
+
+<div class="codehilite code_lang_shell  highlight"><pre><span></span>$ npm i -g webpack
+</pre></div>
+
+<!--block_code_end-->
+<h3 id="toc_5">本地安装</h3>
+<div class="codehilite code_lang_shell  highlight"><pre><span></span>$ npm i --save-dev webpack
+</pre></div>
+
+<!--block_code_end-->
+<p class="md_block">
+    <span class="md_line">Webapck被安装到项目的<strong>开发态依赖</strong>中, 相对于全局安装, 本地安装便于管理<strong>多版本的Webpack</strong>, 避免相互干扰</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">在实际使用时, 通常将webpack命令配置到package.json文件中, 通过npm命令来执行</span>
+</p>
+
+<div class="codehilite code_lang_js  highlight"><pre><span></span><span class="c1">// package.json</span>
+  <span class="s2">&quot;scripts&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;webpack&quot;</span><span class="o">:</span> <span class="s2">&quot;webpack --config webpack.config.js&quot;</span>
+  <span class="p">},</span>
+</pre></div>
+
+<!--block_code_end-->
+<p class="md_block">
+    <span class="md_line">运行时, 执行如下命令:</span>
+</p>
+
+<div class="codehilite code_lang_shell  highlight"><pre><span></span>$ npm run webpack
+</pre></div>
+
+<!--block_code_end-->
+<p class="md_block">
+    <span class="md_line">在实际使用时, 可能会根据<strong>不同的使用场景</strong>包含更多的命令配置.</span>
+</p>
+
+
+<h2 id="toc_6">Getting Started</h2>
+
+<blockquote>
+
+<p class="md_block">
+    <span class="md_line">https://webpack.js.org/guides/getting-started/</span>
+</p>
+
+</blockquote>
+
+<h3 id="toc_7">原始的项目组织方式</h3>
+
+<ul>
+<li>初始化基本的html和js文件</li>
+</ul>
+<img onerror="this.src='../../现代前端开发/_image/2018-01-14-19-30-37.jpg?r=52';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-14-19-30-37.jpg" style="width:52%" class="md_scaled_image"  alt="" title="" style="width:52%;">
+<ul>
+<li>index.html - 暂时在html中手动引入lodash依赖(通过这种传统方式管理js依赖，导致依赖混乱、难以维护、并且需要客户端下载多余的内容)</li>
+</ul>
+<div class="codehilite code_lang_html  highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Getting Started<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://unpkg.com/lodash@4.16.6&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;./src/index.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>src/index.js - 简单创建div元素, 利用lodash函数拼接内容, 显示在页面上</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span><span class="kd">function</span> <span class="nx">component</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
+
+  <span class="c1">// Lodash, currently included via a script, is required for this line to work</span>
+  <span class="nx">element</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">join</span><span class="p">([</span><span class="s1">&#39;Hello&#39;</span><span class="p">,</span> <span class="s1">&#39;webpack&#39;</span><span class="p">],</span> <span class="s1">&#39; &#39;</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="nx">element</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">component</span><span class="p">());</span>
+</pre></div>
+
+<!--block_code_end-->
+<h3 id="toc_8">使用Webpack进行打包</h3>
+
+<ul>
+<li>创建dist目录放置我们最终的发布文件, 将index.html移动到dist目录中 (同样是临时步骤, 避免开始时过于复杂, 这部分操作应该是工具自动完成的)</li>
+<li>修改index.js中的内容，通过es6的导入语法来引入lodash</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span><span class="kr">import</span> <span class="nx">_</span> <span class="nx">from</span> <span class="s1">&#39;lodash&#39;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">component</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
+
+  <span class="nx">element</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">join</span><span class="p">([</span><span class="s1">&#39;Hello&#39;</span><span class="p">,</span> <span class="s1">&#39;webpack&#39;</span><span class="p">],</span> <span class="s1">&#39; &#39;</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="nx">element</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">component</span><span class="p">());</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>修改index.html中的引用，删掉lodash的直接引入，将index.js的引入修改为即将生成的打包文件bundle.js</li>
+</ul>
+<div class="codehilite code_lang_html  highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Getting Started<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;./bundle.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span> <span class="c">&lt;!-- 即将由工具生成的打包结果文件 --&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>手动执行webpack打包命令，生成bundle.js</li>
+</ul>
+<div class="codehilite code_lang_shell  highlight"><pre><span></span>$ webpack src/index.js dist/bundle.js
+</pre></div>
+
+<!--block_code_end--><img onerror="this.src='../../现代前端开发/_image/2018-01-14-19-36-17.jpg?r=100';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-14-19-36-17.jpg" style="width:100%" class="md_scaled_image"  alt="" title="" style="width:100%;">
+<ul>
+<li>在上述打包过程中, <strong>以index.js为入口, 将index.js和它import进来的lodash一起打包为dist/bundle.js</strong>, 在index.html中已经手动引入了结果文件, 最终dist目录下的文件就是最终的构建结果</li>
+</ul>
+
+<h3 id="toc_9">使用配置文件</h3>
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">通常情况下，我们的打包过程会更加复杂，需要单独的配置文件进行管理。 包括<strong>入口, 输出结果, 其他资源文件的加载, 插件扩展等等</strong></span>
+</p>
+
+
+<ul>
+<li>在项目根目录创建webpack.config.js, 在配置文件中目前只包含入口和构建结果配置</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">entry</span><span class="o">:</span> <span class="s1">&#39;./src/index.js&#39;</span><span class="p">,</span>
+  <span class="nx">output</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;bundle.js&#39;</span><span class="p">,</span>
+    <span class="nx">path</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;dist&#39;</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+
+<!--block_code_end-->
+<blockquote>
+
+<p class="md_block">
+    <span class="md_line">path是nodejs自带的工具包, 用于处理路径, __dirname表示<strong>配置文件所在的绝对路径, 与命令的执行路径无关</strong>, 所以 path.resolve(__dirname, &#39;dist&#39;) 就表示项目根目录下的dist目录</span>
+</p>
+
+</blockquote>
+
+<ul>
+<li>运行命令执行打包, 通过<code>--config</code>指定配置文件</li>
+</ul>
+<div class="codehilite code_lang_shell  highlight"><pre><span></span>$ webpack --config webpack.config.js
+</pre></div>
+
+<!--block_code_end-->
+<h3 id="toc_10">Asset Management</h3>
+
+<p class="md_block">
+    <span class="md_line">使用webpack加载样式、图片、字体等内容。</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line"><strong>webpack使用动态绑定的方式，按需加载所需要的资源</strong>, 从入口文件开始, 递归检索引入的资源.</span>
+</p>
+
+
+<h4 id="toc_11">Loading CSS</h4>
+
+<ul>
+<li>添加styles.css文件</li>
+</ul>
+<div class="codehilite code_lang_css  highlight"><pre><span></span><span class="nc">.hello</span> <span class="p">{</span>
+  <span class="nb">color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>index.js文件中引入styles.css，以便webpack可以根据import语句加载样式</li>
+<li>index.js中给element添加class属性，使样式生效</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span><span class="kr">import</span> <span class="nx">_</span> <span class="nx">from</span> <span class="s1">&#39;lodash&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="s1">&#39;./styles.css&#39;</span><span class="p">;</span> <span class="c1">// 引入css文件</span>
+
+<span class="kd">function</span> <span class="nx">component</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
+
+  <span class="nx">element</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">join</span><span class="p">([</span><span class="s1">&#39;Hello&#39;</span><span class="p">,</span> <span class="s1">&#39;webpack&#39;</span><span class="p">],</span> <span class="s1">&#39; &#39;</span><span class="p">);</span>
+  <span class="nx">element</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">);</span> <span class="c1">// 添加class</span>
+
+  <span class="k">return</span> <span class="nx">element</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">component</span><span class="p">());</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>css文件并不是webpack原生支持的模块, 这就需要借助loader, 将css文件转化为内存中的JavaScript模块</li>
+<li>首先安装加载样式文件的loader</li>
+</ul>
+<div class="codehilite code_lang_shell  highlight"><pre><span></span>$ npm i --save-dev style-loader css-loader
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>修改webpack的配置文件，将css文件使用对应的loader进行加载</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">entry</span><span class="o">:</span> <span class="s1">&#39;./src/index.js&#39;</span><span class="p">,</span>
+  <span class="nx">output</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;bundle.js&#39;</span><span class="p">,</span>
+    <span class="nx">path</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;dist&#39;</span><span class="p">)</span>
+  <span class="p">},</span>
+  <span class="nx">module</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">rules</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.css$/</span><span class="p">,</span>
+        <span class="nx">use</span><span class="o">:</span> <span class="p">[</span>
+          <span class="s1">&#39;style-loader&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;css-loader&#39;</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+
+<!--block_code_end-->
+<pre><code>- module中添加css文件的加载规则
+- 通过test配置的正则表达式匹配对应的文件
+- 使用style-loader和css-loader处理样式文件(执行顺序是数组的倒序)</code></pre>
+
+<!--block_code_end-->
+<ul>
+<li>执行webpack打包，样式文件被加载到打包结果bundle.js中: </li>
+</ul>
+<img onerror="this.src='../../现代前端开发/_image/2018-01-14-19-57-11.jpg';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-14-19-57-11.jpg" alt="" title="" >
+<h4 id="toc_12">Loading Sass</h4>
+
+<blockquote>
+
+<p class="md_block">
+    <span class="md_line">https://webpack.js.org/loaders/sass-loader/</span>
+</p>
+
+</blockquote>
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">对于Webpack来说, Sass和Css并没有本质上的区别, 只是需要额外的Loader来<strong>将Sass转化为JavaScript模块</strong></span>
+</p>
+
+
+<ul>
+<li>安装sass-loader</li>
+</ul>
+<div class="codehilite code_lang_shell  highlight"><pre><span></span>$ npm i --save-dev sass-loader node-sass
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>添加rules加载sass</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span>  <span class="p">{</span>
+    <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.scss$/</span><span class="p">,</span>
+    <span class="nx">use</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s1">&#39;style-loader&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;css-loader&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;sass-loader&#39;</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>将styles改写为scss格式(将style.css改名为style.scss), 并在index.js中引入sass文件</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span><span class="kr">import</span> <span class="s1">&#39;./styles.scss&#39;</span><span class="p">;</span> <span class="c1">// 引入scss文件</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>执行webpack进行打包</li>
+</ul>
+<img onerror="this.src='../../现代前端开发/_image/2018-01-14-20-03-41.jpg';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-14-20-03-41.jpg" alt="" title="" >
+<h4 id="toc_13">引入Bootstrap</h4>
+
+<ul>
+<li>安装bootstrap v4</li>
+</ul>
+<div class="codehilite code_lang_shell  highlight"><pre><span></span>$ npm i --save bootstrap@next
+</pre></div>
+
+<!--block_code_end-->
+<blockquote>
+
+<p class="md_block">
+    <span class="md_line">bootstrap会在运行时生效, 所以使用--save参数来安装</span>
+</p>
+
+</blockquote>
+
+<ul>
+<li>在styles.scss中引入bootstrap，为了正确使用bootstrap提供的各种变量和宏，引入scss源文件</li>
+</ul>
+<div class="codehilite code_lang_scss  highlight"><pre><span></span><span class="k">@import</span> <span class="s1">&#39;</span><span class="s2">~bootstrap/scss/bootstrap&#39;</span><span class="p">;</span>
+
+<span class="nc">.hello</span> <span class="p">{</span>
+  <span class="nt">color</span><span class="nd">:</span> <span class="err">$</span><span class="nt">red</span><span class="o">;</span>
+<span class="p">}</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>修改index.js文件，增加bootstrap的container</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span>  <span class="nx">element</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;container&#39;</span><span class="p">)</span>
+  <span class="nx">element</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>打包并查看结果</li>
+</ul>
+<img onerror="this.src='../../现代前端开发/_image/2018-01-14-20-06-15.jpg?r=70';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-14-20-06-15.jpg" style="width:70%" class="md_scaled_image"  alt="" title="" style="width:70%;">
+<h4 id="toc_14">Loading Images</h4>
+
+<ul>
+<li>安装file-loader来加载图片文件</li>
+</ul>
+<div class="codehilite code_lang_shell  highlight"><pre><span></span>$ npm i --save-dev file-loader
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>添加rules来处理图片</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span>  <span class="p">{</span>
+    <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.(png|svg|jpg|gif)$/</span><span class="p">,</span>
+    <span class="nx">use</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s1">&#39;file-loader&#39;</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>在项目中添加一些图标文件</li>
+</ul>
+<img onerror="this.src='../../现代前端开发/_image/2018-01-14-20-10-54.jpg';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-14-20-10-54.jpg" alt="" title="" >
+<ul>
+<li>默认情况下，没有使用的图片不会被打包，需要在js用引入、在css中使用或者在html中加载</li>
+</ul>
+<div class="codehilite code_lang_scss  highlight"><pre><span></span><span class="nc">.hello</span> <span class="p">{</span>
+  <span class="nt">color</span><span class="nd">:</span> <span class="err">$</span><span class="nt">red</span><span class="o">;</span>
+  <span class="nt">background-image</span><span class="nd">:</span> <span class="nt">url</span><span class="o">(</span><span class="s1">&#39;</span><span class="s2">./tile-wide.png&#39;</span><span class="o">);</span>
+<span class="p">}</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>执行打包，文件被复制并重命名，样式中的引用被自动替换</li>
+</ul>
+<img onerror="this.src='../../现代前端开发/_image/2018-01-14-20-11-39.jpg?r=70';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-14-20-11-39.jpg" style="width:70%" class="md_scaled_image"  alt="" title="" style="width:70%;">
+<h4 id="toc_15">压缩图片</h4>
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">图片在打包过程中，通常需要进行压缩处理</span>
+</p>
+
+
+<ul>
+<li>打包前: </li>
+</ul>
+<img onerror="this.src='../../现代前端开发/_image/2018-01-14-20-12-09.jpg?r=51';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-14-20-12-09.jpg" style="width:51%" class="md_scaled_image"  alt="" title="" style="width:51%;">
+<ul>
+<li>安装image-webpack-loader</li>
+</ul>
+<div class="codehilite code_lang_shell  highlight"><pre><span></span>$ npm i --save-dev image-webpack-loader
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>修改rule配置</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span>  <span class="p">{</span>
+    <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.(png|svg|jpg|gif)$/</span><span class="p">,</span>
+    <span class="nx">use</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s1">&#39;file-loader&#39;</span><span class="p">,</span>
+    <span class="p">{</span>
+      <span class="nx">loader</span><span class="o">:</span> <span class="s1">&#39;image-webpack-loader&#39;</span><span class="p">,</span>
+      <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">bypassOnDebug</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="p">},</span>
+    <span class="p">},</span>
+
+    <span class="p">]</span>
+  <span class="p">}</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>执行打包，文件从139k压缩到37k</li>
+</ul>
+<img onerror="this.src='../../现代前端开发/_image/2018-01-14-20-15-40.jpg?r=51';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-14-20-15-40.jpg" style="width:51%" class="md_scaled_image"  alt="" title="" style="width:51%;">
+<h4 id="toc_16">Loading fonts</h4>
+
+<ul>
+<li>使用file-loader加载字体文件</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span>  <span class="p">{</span>
+    <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.(woff|woff2|eot|ttf|otf)$/</span><span class="p">,</span>
+    <span class="nx">use</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s1">&#39;file-loader&#39;</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>下载字体并修改样式文件</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span><span class="err">@</span><span class="kr">import</span> <span class="s1">&#39;~bootstrap/scss/bootstrap&#39;</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">font</span><span class="o">-</span><span class="nx">face</span> <span class="p">{</span><span class="nx">font</span><span class="o">-</span><span class="nx">family</span><span class="o">:</span> <span class="s2">&quot;DuperWeb W03 Italic&quot;</span><span class="p">;</span>
+  <span class="nx">src</span><span class="o">:</span> <span class="nx">url</span><span class="p">(</span><span class="s2">&quot;./fonts/32614b2a79096b7abe08dce827de3d8f.eot&quot;</span><span class="p">);</span> <span class="cm">/* IE9*/</span>
+  <span class="nx">src</span><span class="o">:</span> <span class="nx">url</span><span class="p">(</span><span class="s2">&quot;./fonts/32614b2a79096b7abe08dce827de3d8f.eot?#iefix&quot;</span><span class="p">)</span> <span class="nx">format</span><span class="p">(</span><span class="s2">&quot;embedded-opentype&quot;</span><span class="p">),</span> <span class="cm">/* IE6-IE8 */</span>
+  <span class="nx">url</span><span class="p">(</span><span class="s2">&quot;./fonts/32614b2a79096b7abe08dce827de3d8f.woff2&quot;</span><span class="p">)</span> <span class="nx">format</span><span class="p">(</span><span class="s2">&quot;woff2&quot;</span><span class="p">),</span> <span class="cm">/* chrome、firefox */</span>
+  <span class="nx">url</span><span class="p">(</span><span class="s2">&quot;./fonts/32614b2a79096b7abe08dce827de3d8f.woff&quot;</span><span class="p">)</span> <span class="nx">format</span><span class="p">(</span><span class="s2">&quot;woff&quot;</span><span class="p">),</span> <span class="cm">/* chrome、firefox */</span>
+  <span class="nx">url</span><span class="p">(</span><span class="s2">&quot;./fonts/32614b2a79096b7abe08dce827de3d8f.ttf&quot;</span><span class="p">)</span> <span class="nx">format</span><span class="p">(</span><span class="s2">&quot;truetype&quot;</span><span class="p">),</span> <span class="cm">/* chrome、firefox、opera、Safari, Android, iOS 4.2+*/</span>
+  <span class="nx">url</span><span class="p">(</span><span class="s2">&quot;./fonts/32614b2a79096b7abe08dce827de3d8f.svg#DuperWeb W03 Italic&quot;</span><span class="p">)</span> <span class="nx">format</span><span class="p">(</span><span class="s2">&quot;svg&quot;</span><span class="p">);</span> <span class="cm">/* iOS 4.1- */</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nx">hello</span> <span class="p">{</span>
+  <span class="nx">font</span><span class="o">-</span><span class="nx">family</span><span class="o">:</span> <span class="s1">&#39;DuperWeb W03 Italic&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>执行打包，字体被加载到输出目录</li>
+</ul>
+<img onerror="this.src='../../现代前端开发/_image/2018-01-14-20-46-10.jpg?r=50';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-14-20-46-10.jpg" style="width:50%" class="md_scaled_image"  alt="" title="" style="width:50%;">
+<h4 id="toc_17">Loading Data</h4>
+
+<ul>
+<li>安装csv-loader和xml-loader</li>
+</ul>
+<div class="codehilite code_lang_shell  highlight"><pre><span></span>$ npm i --save-dev csv-loader xml-loader
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>创建用于测试的xml文件</li>
+</ul>
+<div class="codehilite code_lang_xml  highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;note&gt;</span>
+  <span class="nt">&lt;to&gt;</span>Mary<span class="nt">&lt;/to&gt;</span>
+  <span class="nt">&lt;from&gt;</span>John<span class="nt">&lt;/from&gt;</span>
+  <span class="nt">&lt;heading&gt;</span>Reminder<span class="nt">&lt;/heading&gt;</span>
+  <span class="nt">&lt;body&gt;</span>Call Cindy on Tuesday<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/note&gt;</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>js文件中import文件并打印内容</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span><span class="kr">import</span> <span class="nx">_</span> <span class="nx">from</span> <span class="s1">&#39;lodash&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="s1">&#39;./styles.scss&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">data</span> <span class="nx">from</span> <span class="s1">&#39;./data.xml&#39;</span>
+
+<span class="kd">function</span> <span class="nx">component</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
+
+  <span class="nx">element</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">join</span><span class="p">([</span><span class="s1">&#39;Hello&#39;</span><span class="p">,</span> <span class="s1">&#39;webpack&#39;</span><span class="p">],</span> <span class="s1">&#39; &#39;</span><span class="p">);</span>
+  <span class="nx">element</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;container&#39;</span><span class="p">)</span>
+  <span class="nx">element</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="nx">element</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">component</span><span class="p">());</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>执行打包，查看输出结果(xml文件内容被内联到js脚本中)</li>
+</ul>
+<img onerror="this.src='../../现代前端开发/_image/2018-01-14-20-47-57.jpg?r=70';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-14-20-47-57.jpg" style="width:70%" class="md_scaled_image"  alt="" title="" style="width:70%;">
+<h4 id="toc_18">Output Management</h4>
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">目前为止，我们是通过<strong>手动引入</strong>的方式在维护index.html中的引用。随着项目的增大，会将文件分为多个bundle输出，而且需要增加hash，<strong>自动维护index.html中的更新</strong>。</span>
+</p>
+
+
+<ul>
+<li>新增一个print.js文件，当点击页面按钮的时候，在控制台打印信息</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span><span class="kr">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">print</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;I am pringting message&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>index.js中新增按钮，点击时调用print的方法</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span>  <span class="kd">var</span> <span class="nx">btn</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">)</span>
+  <span class="nx">btn</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;btn&#39;</span><span class="p">)</span>
+  <span class="nx">btn</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;btn-primary&#39;</span><span class="p">)</span>
+  <span class="nx">btn</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;Click me and check the console!&#39;</span><span class="p">;</span>
+  <span class="nx">btn</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="nx">printMe</span><span class="p">;</span>
+
+  <span class="nx">element</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">btn</span><span class="p">)</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>分为两个包输出打包结果，修改webpack配置文件</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span>  <span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">app</span><span class="o">:</span> <span class="s1">&#39;./src/index.js&#39;</span><span class="p">,</span>
+    <span class="nx">print</span><span class="o">:</span> <span class="s1">&#39;./src/print.js&#39;</span>
+  <span class="p">},</span>
+  <span class="nx">output</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;[name].js&#39;</span><span class="p">,</span>
+    <span class="nx">path</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;dist&#39;</span><span class="p">)</span>
+  <span class="p">},</span>
+</pre></div>
+
+<!--block_code_end-->
+<blockquote>
+
+<p class="md_block">
+    <span class="md_line">entry中通过配置对象的key值拆分为app和print两个结果包<br /></span>
+    <span class="md_line">filename: &#39;[name].js&#39;中的[name]是Webpack内置的变量, name会被替换为app和print</span>
+</p>
+
+</blockquote>
+
+<ul>
+<li>执行打包后, 会自动拆分为两个包</li>
+</ul>
+<img onerror="this.src='../../现代前端开发/_image/2018-01-14-20-51-15.jpg?r=70';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-14-20-51-15.jpg" style="width:70%" class="md_scaled_image"  alt="" title="" style="width:70%;">
+<ul>
+<li>但是我们需要手动修改index.html文件，来引入新生成的js文件</li>
+</ul>
+<div class="codehilite code_lang_html  highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;./print.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;./app.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</pre></div>
+
+<!--block_code_end-->
+<h4 id="toc_19">使用HtmlWebpackPlugin管理html文件</h4>
+
+<ul>
+<li>安装依赖</li>
+</ul>
+<div class="codehilite code_lang_shell  highlight"><pre><span></span>$ npm i --save-dev html-webpack-plugin
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>webpack配置中添加插件</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span>  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+    <span class="k">new</span> <span class="nx">HtmlWebpackPlugin</span><span class="p">({</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Output Management&#39;</span>      
+    <span class="p">})</span>
+  <span class="p">]</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>执行打包后，自动生成index.html，并且自动引入bundle文件，并且根据配置项自动生成了title</li>
+</ul>
+<div class="codehilite code_lang_html  highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Output Management<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;app.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;print.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+
+<!--block_code_end-->
+<h4 id="toc_20">清理 /dist 文件夹</h4>
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">每次我们执行打包的时候，dist中的文件没有清除，如果是同名会覆盖，但是其他文件会被遗留下来，通过插件来进行自动清理。</span>
+</p>
+
+
+<ul>
+<li>安装依赖</li>
+</ul>
+<div class="codehilite code_lang_shell  highlight"><pre><span></span>$ npm i --save-dev clean-webpack-plugin
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>配置webpack插件</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span>  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+    <span class="k">new</span> <span class="nx">CleanWebpackPlugin</span><span class="p">(</span><span class="s1">&#39;./dist&#39;</span><span class="p">),</span>
+    <span class="k">new</span> <span class="nx">HtmlWebpackPlugin</span><span class="p">({</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Output Management&#39;</span>      
+    <span class="p">})</span>
+  <span class="p">]</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>执行打包，可以看到控制台输出，而且在ide中也能看到目录有被清空的过程</li>
+</ul>
+<div class="codehilite code_lang_shell  highlight"><pre><span></span>$ webpack --config webpack.config.js
+clean-webpack-plugin: /Users/yangxu/Documents/projects/demo/webpack-study/dist has been removed.
+</pre></div>
+
+<!--block_code_end-->
+<h4 id="toc_21">生成Manifest文件</h4>
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">webpack通过一个manifest文件来记录那些文件已经被打包，避免重复生成。可以通过插件来将manifest生成为独立的json文件，以便我们探索webpack的生成过程。</span>
+</p>
+
+
+<ul>
+<li>安装依赖</li>
+</ul>
+<div class="codehilite code_lang_shell  highlight"><pre><span></span>$ npm i --save-dev webpack-manifest-plugin
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>配置插件</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span>  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+    <span class="k">new</span> <span class="nx">ManifestPlugin</span><span class="p">(),</span>
+  <span class="p">]</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>执行打包，生成manifest文件</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;32614b2a79096b7abe08dce827de3d8f.eot&quot;</span><span class="o">:</span> <span class="s2">&quot;411ad8ba151412a129561712cfd5b33e.eot&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;32614b2a79096b7abe08dce827de3d8f.svg&quot;</span><span class="o">:</span> <span class="s2">&quot;677433a0892aaed7b7d2628c313c9775.svg&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;32614b2a79096b7abe08dce827de3d8f.ttf&quot;</span><span class="o">:</span> <span class="s2">&quot;32614b2a79096b7abe08dce827de3d8f.ttf&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;32614b2a79096b7abe08dce827de3d8f.woff&quot;</span><span class="o">:</span> <span class="s2">&quot;60500f8ba55a33b536b53d982a6bbd36.woff&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;32614b2a79096b7abe08dce827de3d8f.woff2&quot;</span><span class="o">:</span> <span class="s2">&quot;b78cdd1b72a799e280936eb369d94538.woff2&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;app.js&quot;</span><span class="o">:</span> <span class="s2">&quot;app.bundle.js&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;print.js&quot;</span><span class="o">:</span> <span class="s2">&quot;print.bundle.js&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+<!--block_code_end-->
+<h4 id="toc_22">完整的配置文件</h4>
+<div class="codehilite code_lang_js  highlight"><pre><span></span><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">HtmlWebpackPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;html-webpack-plugin&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">CleanWebpackPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;clean-webpack-plugin&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">ManifestPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack-manifest-plugin&#39;</span><span class="p">)</span>
+
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">app</span><span class="o">:</span> <span class="s1">&#39;./src/index.js&#39;</span><span class="p">,</span>
+    <span class="nx">print</span><span class="o">:</span> <span class="s1">&#39;./src/print.js&#39;</span>
+  <span class="p">},</span>
+  <span class="nx">devtool</span><span class="o">:</span> <span class="s1">&#39;inline-source-map&#39;</span><span class="p">,</span>
+  <span class="nx">devServer</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">contentBase</span><span class="o">:</span> <span class="s1">&#39;./dist&#39;</span>    
+  <span class="p">},</span>
+  <span class="nx">output</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;[name].bundle.js&#39;</span><span class="p">,</span>
+    <span class="nx">path</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;dist&#39;</span><span class="p">)</span>
+  <span class="p">},</span>
+  <span class="nx">module</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">rules</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.css$/</span><span class="p">,</span>
+        <span class="nx">use</span><span class="o">:</span> <span class="p">[</span>
+          <span class="s1">&#39;style-loader&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;css-loader&#39;</span>
+        <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.scss$/</span><span class="p">,</span>
+        <span class="nx">use</span><span class="o">:</span> <span class="p">[</span>
+          <span class="s1">&#39;style-loader&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;css-loader&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;sass-loader&#39;</span>
+        <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.(png|svg|jpg|gif)$/</span><span class="p">,</span>
+        <span class="nx">use</span><span class="o">:</span> <span class="p">[</span>
+          <span class="s1">&#39;file-loader&#39;</span><span class="p">,</span>
+          <span class="p">{</span>
+            <span class="nx">loader</span><span class="o">:</span> <span class="s1">&#39;image-webpack-loader&#39;</span><span class="p">,</span>
+            <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+              <span class="nx">bypassOnDebug</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="p">},</span>
+          <span class="p">},</span>
+        <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.(woff|woff2|eot|ttf|otf)$/</span><span class="p">,</span>
+        <span class="nx">use</span><span class="o">:</span> <span class="p">[</span>
+          <span class="s1">&#39;file-loader&#39;</span>
+        <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.(csv|tsg)$/</span><span class="p">,</span>
+        <span class="nx">use</span><span class="o">:</span> <span class="p">[</span>
+          <span class="s1">&#39;csv-loader&#39;</span>
+        <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.xml$/</span><span class="p">,</span>
+        <span class="nx">use</span><span class="o">:</span> <span class="p">[</span>
+          <span class="s1">&#39;xml-loader&#39;</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+    <span class="k">new</span> <span class="nx">ManifestPlugin</span><span class="p">(),</span>
+    <span class="k">new</span> <span class="nx">CleanWebpackPlugin</span><span class="p">(</span><span class="s1">&#39;./dist&#39;</span><span class="p">),</span>
+    <span class="k">new</span> <span class="nx">HtmlWebpackPlugin</span><span class="p">({</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Output Management&#39;</span>      
+    <span class="p">})</span>
+  <span class="p">]</span>
+<span class="p">};</span>
+</pre></div>
+
+<!--block_code_end-->
+<h2 id="toc_23">关键概念</h2>
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">Webpack的工作流程主要围绕着几个关键概念: </span>
+</p>
+
+
+<ul>
+<li>
+<p class="md_block">
+    <span class="md_line">Entry - 指示 webpack 应该使用哪个模块，来作为构建其内部依赖图的开始。进入入口起点后，webpack 会找出有哪些模块和库是入口起点（直接和间接）依赖的。</span>
+</p></li>
+<li>
+<p class="md_block">
+    <span class="md_line">Output - 告诉 webpack 在哪里输出它所创建的 bundles，以及如何命名这些文件。</span>
+</p></li>
+<li>
+<p class="md_block">
+    <span class="md_line">Loaders - 让 webpack 能够去处理那些非 JavaScript 文件（webpack 自身只理解 JavaScript）。loader 可以将所有类型的文件转换为 webpack 能够处理的有效模块，然后你就可以利用 webpack 的打包能力，对它们进行处理。</span>
+</p></li>
+<li>
+<p class="md_block">
+    <span class="md_line">Plugins - loader 被用于转换某些类型的模块，而插件则可以用于执行范围更广的任务。插件的范围包括，从打包优化和压缩，一直到重新定义环境中的变量。</span>
+</p></li>
+</ul>
+
+<h2 id="toc_24">开发</h2>
+
+<h3 id="toc_25">使用 source map</h3>
+
+<p class="md_block">
+    <span class="md_line">当文件被打包后，如果执行过程中出现错误，浏览器会指向到bundle文件，难以定位具体位置，通过启用sourcemap，来帮助我们日常<strong>开发中的快速定位</strong>。</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">在配置文件中加入一行:</span>
+</p>
+
+<div class="codehilite code_lang_js  highlight"><pre><span></span><span class="nx">devtool</span><span class="o">:</span> <span class="s1">&#39;inline-source-map&#39;</span><span class="p">,</span>
+</pre></div>
+
+<!--block_code_end-->
+<p class="md_block md_has_block_below md_has_block_below_img">
+    <span class="md_line">重新打包后，刷新页面，可以看到控制台信息指向了实际的源码位置，Source页签中也能看到源码信息。以及断点调试功能。</span>
+</p>
+
+<img onerror="this.src='../../现代前端开发/_image/2018-01-17-23-44-58.jpg';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-17-23-44-58.jpg" alt="" title="" ><img onerror="this.src='../../现代前端开发/_image/2018-01-17-23-45-15.jpg';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-17-23-45-15.jpg" alt="" title="" ><img onerror="this.src='../../现代前端开发/_image/2018-01-17-23-45-32.jpg';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-17-23-45-32.jpg" alt="" title="" >
+<h3 id="toc_26">选择一个开发工具</h3>
+
+<p class="md_block">
+    <span class="md_line">每次要编译代码时，手动运行 npm run build 就会变得很麻烦。</span>
+</p>
+
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">webpack 中有几个不同的选项，可以帮助你在代码发生变化后自动编译代码：</span>
+</p>
+
+
+<ul>
+<li>Watch Mode - 通过命令行参数开启, 只监控文件 <strong>变化并自动打包</strong> , 不会自动刷新浏览器</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span><span class="s2">&quot;watch&quot;</span><span class="o">:</span> <span class="s2">&quot;webpack --watch&quot;</span><span class="p">,</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>webpack-dev-server - webpack工具, 独立安装并执行后, 可以提供自动打包/刷新/HMR等功能</li>
+</ul>
+<div class="codehilite code_lang_shell  highlight"><pre><span></span>$ npm i --save-dev webpack-dev-server
+</pre></div>
+
+<!--block_code_end--><div class="codehilite code_lang_js  highlight"><pre><span></span><span class="c1">// webpack.config.js</span>
+   <span class="nx">devServer</span><span class="o">:</span> <span class="p">{</span>
+     <span class="nx">contentBase</span><span class="o">:</span> <span class="s1">&#39;./dist&#39;</span>
+   <span class="p">},</span>
+</pre></div>
+
+<!--block_code_end--><div class="codehilite code_lang_js  highlight"><pre><span></span><span class="c1">// package.json</span>
+<span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;webpack-dev-server --open&quot;</span><span class="p">,</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>webpack-dev-middleware - 作为express的中间件, 在webpack-dev-server内部是集成了一个server进程，监听文件变化并自动刷新。 这部分能力可以被独立为webpack-dev-middleware，需要创建一个server.js文件，并通过node启动</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span><span class="c1">// server.js</span>
+<span class="kr">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">webpack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack&#39;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">webpackDevMiddleware</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack-dev-middleware&#39;</span><span class="p">);</span>
+
+<span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+<span class="kr">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./webpack.config.js&#39;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">compiler</span> <span class="o">=</span> <span class="nx">webpack</span><span class="p">(</span><span class="nx">config</span><span class="p">);</span>
+
+<span class="c1">// Tell express to use the webpack-dev-middleware and use the webpack.config.js</span>
+<span class="c1">// configuration file as a base.</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">webpackDevMiddleware</span><span class="p">(</span><span class="nx">compiler</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">publicPath</span><span class="o">:</span> <span class="nx">config</span><span class="p">.</span><span class="nx">output</span><span class="p">.</span><span class="nx">publicPath</span>
+<span class="p">}));</span>
+
+<span class="c1">// Serve the files on port 3000.</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Example app listening on port 3000!\n&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+
+<!--block_code_end--><div class="codehilite code_lang_shell  highlight"><pre><span></span>$ node server.js
+</pre></div>
+
+<!--block_code_end-->
+<h3 id="toc_27">Hot Module Replacement(模块热替换)</h3>
+
+<blockquote>
+
+<p class="md_block">
+    <span class="md_line">模块热替换(Hot Module Replacement 或 HMR)是 webpack 提供的最有用的功能之一。它允许在运行时更新各种模块，而无需进行完全刷新。</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">HMR 不适用于生产环境，这意味着它应当只在开发环境使用</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">https://doc.webpack-china.org/guides/hot-module-replacement/</span>
+</p>
+
+</blockquote>
+
+<ul>
+<li>修改配置文件，启用webpack-dev-server内置的hmr能力</li>
+</ul>
+<img onerror="this.src='../../现代前端开发/_image/2018-01-18-23-35-26.jpg?r=70';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-18-23-35-26.jpg" style="width:70%" class="md_scaled_image"  alt="" title="" style="width:70%;">
+<ul>
+<li>index.js 文件，以便当 print.js 内部发生变更时可以告诉 webpack 接受更新的模块。</li>
+</ul>
+<img onerror="this.src='../../现代前端开发/_image/2018-01-18-23-37-18.jpg?r=71';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-18-23-37-18.jpg" style="width:71%" class="md_scaled_image"  alt="" title="" style="width:71%;">
+<ul>
+<li>样式文件的HMR已经集成在style-loader内部, 只需要修改样式便会自动生效</li>
+<li>
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">在上面例子中可以看到, 想要开启HMR除了需要引入工具, 同样需要在代码中注入判断逻辑, 这本身不符合工具的使用方式, 而在一些广泛使用的框架中, 存在大量的loader集成了框架的HMR处理, 这也是我们使用框架进行开发的重要原因</span>
+</p>
+
+
+<ul>
+<li>React Hot Loader：实时调整 react 组件。</li>
+<li>Vue Loader：此 loader 支持用于 vue 组件的 HMR，提供开箱即用体验。</li>
+<li>Elm Hot Loader：支持用于 Elm 程序语言的 HMR。</li>
+<li>Redux HMR：无需 loader 或插件！只需对 main store 文件进行简单的修改。</li>
+<li>Angular 没有必要使用 loader！只需对主要的 NgModule 文件进行简单的修改，由 HMR API 完全控制。</li>
+</ul></li>
+</ul>
+
+<h4 id="toc_28">HMR的作用</h4>
+
+<ul>
+<li>保留当前页面状态，避免整体刷新后丢失</li>
+<li>节省开发时间</li>
+<li>实时看到样式变化</li>
+</ul>
+
+<h4 id="toc_29">How It Works</h4>
+
+<blockquote>
+
+<p class="md_block">
+    <span class="md_line">https://doc.webpack-china.org/concepts/hot-module-replacement/</span>
+</p>
+
+</blockquote>
+
+<p class="md_block">
+    <span class="md_line">通过不同的视角来解释HMR是如何工作的:</span>
+</p>
+
+
+<p class="md_block md_has_block_below md_has_block_below_ol">
+    <span class="md_line md_line_dom_embed"><strong>In the Application</strong></span>
+</p>
+
+
+<ol>
+<li>应用程序让HMR去检查更新</li>
+<li>HMR异步下载更新并通知应用程序</li>
+<li>应用程序让HMR去提交更新</li>
+<li>HMR同步刷新变更内容</li>
+</ol>
+
+<p class="md_block">
+    <span class="md_line md_line_dom_embed"><strong>In the Compiler</strong></span>
+</p>
+
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">当文件发生变化后，会更新两部分内容:</span>
+</p>
+
+
+<ul>
+<li>manifest文件</li>
+<li>构建结果文件</li>
+</ul>
+
+<p class="md_block">
+    <span class="md_line">manifest中的hash码会发生变化，webpack通过文件id和hash发现文件的更新。</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line md_line_dom_embed"><strong>In a Module</strong></span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">HMR是一个可选的功能，仅仅对于包含HMR代码(accept)的模块生效。例如style-loader中的实现，发生变化后，通过HMR的api来替换旧内容。</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line md_line_dom_embed"><strong>In the Runtime</strong></span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">在模块的运行时，会有额外的代码被加入，用来<strong>监听模块的父模块和子模块</strong>。包含<strong>check和apply两个方法</strong>。</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">check方法会发起HTTP请求，校验manifest文件，如果没有更新，请求会失败。如果请求成功，更新后的chunks会被下载。</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">当所有文件下载完成后，运行时会切换到ready状态，准备替换所有更新。</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">apply方法先将所有需要更新的模块状态设置为invalid，在每个需要更新的模块中，需要在他自身或者他的父模块中，包含handler处理，否则更新事件不会生效。</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">如果事件始终没有被捕获，通过entry流出，更新过程失败。</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">如果事件被某个模块的handler捕获并更新，这个<strong>模块以及依赖他的子模块</strong>都会进行刷新。</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">当所有的过期模块都被处理完成后，运行时会切换回idle状态，应用继续使用。</span>
+</p>
+
+
+<h2 id="toc_30">Tree Shaking</h2>
+
+<blockquote>
+
+<p class="md_block">
+    <span class="md_line">tree shaking 是一个术语，通常用于描述移除 JavaScript 上下文中的未引用代码(dead-code)。它依赖于 ES2015 模块系统中的静态结构特性，例如 import 和 export。这个术语和概念实际上是兴起于 ES2015 模块打包工具 rollup。</span>
+</p>
+
+</blockquote>
+
+<p class="md_block">
+    <span class="md_line">Tree Shaking可以主要用于生产环境的打包构建, 可以将应用程序想象成一棵树。绿色表示实际用到的源码和 library，是树上活的树叶。灰色表示无用的代码，是秋天树上枯萎的树叶。为了除去死去的树叶，你必须摇动这棵树，使它们落下。</span>
+</p>
+
+
+<p class="md_block md_has_block_below md_has_block_below_blockquote">
+    <span class="md_line">主要作用是减少应用的<strong>体积</strong>, 提高应用加载速度, 提高用户体验</span>
+</p>
+
+
+<blockquote>
+
+<p class="md_block">
+    <span class="md_line">https://doc.webpack-china.org/guides/tree-shaking/</span>
+</p>
+
+</blockquote>
+
+<h3 id="toc_31">添加一个通用模块</h3>
+
+<ul>
+<li>添加一个简单的计算函数模块</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span><span class="kr">export</span> <span class="kd">function</span> <span class="nx">square</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">cube</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>在index.js中调用其中一个方法</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span>  <span class="nx">element</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">join</span><span class="p">([</span><span class="s1">&#39;Hello&#39;</span><span class="p">,</span> <span class="s1">&#39;webpack&#39;</span><span class="p">,</span> <span class="s1">&#39;5 cubed is equal to &#39;</span> <span class="o">+</span> <span class="nx">cube</span><span class="p">(</span><span class="mi">5</span><span class="p">)],</span> <span class="s1">&#39; &#39;</span><span class="p">);</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>square方法是没有被使用的，但是也会被打包到最后的结果中，导致整体包的 <strong>体积被撑大</strong> , 特别是在项目规模增大或者使用三方件的时候, 会导致产品体积增大, 影响加载速度</li>
+</ul>
+<img onerror="this.src='../../现代前端开发/_image/2018-01-19-00-06-49.jpg';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-19-00-06-49.jpg" alt="" title="" >
+<ul>
+<li>在打包结果中, square方法被标记为 <strong>未使用</strong> , 但是webpack自身不会将其剔除, 需要借助其他工具将无用代码删除</li>
+</ul>
+
+<h3 id="toc_32">精简输出</h3>
+<div class="codehilite code_lang_shell  highlight"><pre><span></span>$ npm install --save-dev uglifyjs-webpack-plugin
+</pre></div>
+
+<!--block_code_end-->
+<p class="md_block md_has_block_below md_has_block_below_img">
+    <span class="md_line">然后将其添加到我们的配置中：</span>
+</p>
+
+<img onerror="this.src='../../现代前端开发/_image/2018-01-19-00-08-28.jpg?r=71';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-19-00-08-28.jpg" style="width:71%" class="md_scaled_image"  alt="" title="" style="width:71%;">
+<p class="md_block">
+    <span class="md_line">执行打包后，不仅<strong>多余的square方法被移除，而且打包结果被混淆压缩</strong>，在实际应用中会大大缩减包的体积</span>
+</p>
+
+
+<h3 id="toc_33">警告</h3>
+
+<p class="md_block md_has_block_below md_has_block_below_img">
+    <span class="md_line">请注意，webpack 本身并不会执行 tree-shaking。它需要依赖于像 UglifyJS 这样的第三方工具来执行实际的未引用代码(dead code)删除工作。有些情况下，tree-shaking <strong>可能不会生效</strong>。例如，考虑以下模块：</span>
+</p>
+
+<img onerror="this.src='../../现代前端开发/_image/2018-01-19-00-10-02.jpg?r=71';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-19-00-10-02.jpg" style="width:71%" class="md_scaled_image"  alt="" title="" style="width:71%;">
+<p class="md_block">
+    <span class="md_line md_line_dom_embed"><strong>webpack 不能确定是否调用 mylib.transform 会引发任何副作用(side-effects)。因此，为保险起见，将在 bundle 代码中保留 someOtherVar。</strong></span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line md_line_dom_embed"><strong>常见的情况有：从第三方模块中调用一个函数，webpack 和/或 压缩工具(minifier)无法检查此模块；从第三方模块导入的函数被重新导出，等等。</strong></span>
+</p>
+
+
+<h2 id="toc_34">生产环境构建</h2>
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">开发环境(development)和生产环境(production)的构建目标差异很大。</span>
+</p>
+
+
+<ul>
+<li>在开发环境中，我们需要具有强大的、具有实时重新加载(live reloading)或热模块替换(hot module replacement)能力的 source map 和 localhost server。</li>
+<li>在生产环境中，我们的目标则转向于关注更小的 bundle，更轻量的 source map，以及更优化的资源，以改善加载时间。</li>
+</ul>
+
+<p class="md_block">
+    <span class="md_line">由于要遵循逻辑分离，我们通常建议为每个环境编写彼此<strong>独立</strong>的 webpack 配置。</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">遵循不重复原则(Don&#39;t repeat yourself - DRY)，保留一个<strong>“通用”配置</strong>。为了将这些配置合并在一起，将使用一个名为 webpack-merge 的工具。</span>
+</p>
+
+<div class="codehilite code_lang_shell  highlight"><pre><span></span>$ npm install --save-dev webpack-merge
+</pre></div>
+
+<!--block_code_end-->
+<p class="md_block md_has_block_below md_has_block_below_img">
+    <span class="md_line">配置文件分解为common、dev、prod三份，通过webpack-merge进行合并</span>
+</p>
+
+<img onerror="this.src='../../现代前端开发/_image/2018-01-19-01-19-31.jpg?r=50';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-19-01-19-31.jpg" style="width:50%" class="md_scaled_image"  alt="" title="" style="width:50%;"><div class="codehilite code_lang_js  highlight"><pre><span></span><span class="c1">// webpack.common.js</span>
+
+<span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">HtmlWebpackPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;html-webpack-plugin&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">CleanWebpackPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;clean-webpack-plugin&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">webpack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack&#39;</span><span class="p">)</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">app</span><span class="o">:</span> <span class="s1">&#39;./src/index.js&#39;</span>
+  <span class="p">},</span>
+  <span class="nx">output</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;[name].bundle.js&#39;</span><span class="p">,</span>
+    <span class="nx">path</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;dist&#39;</span><span class="p">)</span>
+  <span class="p">},</span>
+  <span class="nx">module</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">rules</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.css$/</span><span class="p">,</span>
+        <span class="nx">use</span><span class="o">:</span> <span class="p">[</span>
+          <span class="s1">&#39;style-loader&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;css-loader&#39;</span>
+        <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.(png|svg|jpg|gif)$/</span><span class="p">,</span>
+        <span class="nx">use</span><span class="o">:</span> <span class="p">[</span>
+          <span class="s1">&#39;file-loader&#39;</span><span class="p">,</span>
+          <span class="p">{</span>
+            <span class="nx">loader</span><span class="o">:</span> <span class="s1">&#39;image-webpack-loader&#39;</span><span class="p">,</span>
+            <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+              <span class="nx">bypassOnDebug</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="p">},</span>
+          <span class="p">},</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+    <span class="k">new</span> <span class="nx">CleanWebpackPlugin</span><span class="p">(</span><span class="s1">&#39;./dist&#39;</span><span class="p">),</span>
+    <span class="k">new</span> <span class="nx">HtmlWebpackPlugin</span><span class="p">({</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Output Management&#39;</span>      
+    <span class="p">}),</span>
+  <span class="p">]</span>
+<span class="p">};</span>
+</pre></div>
+
+<!--block_code_end--><div class="codehilite code_lang_js  highlight"><pre><span></span><span class="c1">// webpack.dev.js</span>
+<span class="kr">const</span> <span class="nx">ManifestPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack-manifest-plugin&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">webpack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack&#39;</span><span class="p">)</span>
+
+<span class="kr">const</span> <span class="nx">merge</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack-merge&#39;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">common</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./webpack.common.js&#39;</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">merge</span><span class="p">(</span><span class="nx">common</span><span class="p">,</span> <span class="p">{</span> <span class="c1">// 合并公共配置</span>
+  <span class="nx">devtool</span><span class="o">:</span> <span class="s1">&#39;inline-source-map&#39;</span><span class="p">,</span>
+  <span class="nx">devServer</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">contentBase</span><span class="o">:</span> <span class="s1">&#39;./dist&#39;</span><span class="p">,</span>
+    <span class="nx">hot</span><span class="o">:</span> <span class="kc">true</span>
+  <span class="p">},</span>
+  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+    <span class="k">new</span> <span class="nx">ManifestPlugin</span><span class="p">(),</span>
+    <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">NamedModulesPlugin</span><span class="p">(),</span>
+    <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">HotModuleReplacementPlugin</span><span class="p">()</span>
+  <span class="p">]</span>
+<span class="p">})</span>
+</pre></div>
+
+<!--block_code_end--><div class="codehilite code_lang_js  highlight"><pre><span></span><span class="c1">// webpack.prod.js</span>
+
+<span class="kr">const</span> <span class="nx">UglifyJSPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;uglifyjs-webpack-plugin&#39;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">merge</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack-merge&#39;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">common</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./webpack.common.js&#39;</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">merge</span><span class="p">(</span><span class="nx">common</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+    <span class="k">new</span> <span class="nx">UglifyJSPlugin</span><span class="p">(),</span>
+  <span class="p">]</span>
+<span class="p">})</span>
+</pre></div>
+
+<!--block_code_end-->
+<p class="md_block">
+    <span class="md_line">把 scripts 重新指向到新配置。我们将 npm start 定义为开发环境脚本，并在其中使用 webpack-dev-server，将 npm run build 定义为生产环境脚本：</span>
+</p>
+
+<div class="codehilite code_lang_js  highlight"><pre><span></span><span class="c1">// package.json</span>
+
+<span class="s2">&quot;scripts&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;webpack-dev-server --open --config webpack.dev.js&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;build&quot;</span><span class="o">:</span> <span class="s2">&quot;webpack --config webpack.prod.js&quot;</span>
+<span class="p">},</span>
+</pre></div>
+
+<!--block_code_end-->
+<h3 id="toc_35">source map</h3>
+
+<p class="md_block md_has_block_below md_has_block_below_img">
+    <span class="md_line">webpack官方鼓励<strong>在生产环境中启用 source map</strong>，因为它们对调试源码(debug)和运行基准测试(benchmark tests)很有帮助。</span>
+</p>
+
+<img onerror="this.src='../../现代前端开发/_image/2018-01-19-01-24-17.jpg?r=71';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-19-01-24-17.jpg" style="width:71%" class="md_scaled_image"  alt="" title="" style="width:71%;">
+<blockquote>
+
+<p class="md_block">
+    <span class="md_line">避免在生产中使用 inline- 和 eval-，因为它们可以增加 bundle 大小，并降低整体性能。</span>
+</p>
+
+</blockquote>
+
+<h3 id="toc_36">指定环境变量</h3>
+
+<p class="md_block">
+    <span class="md_line">很多的库会检查<strong>process.env.NODE_ENV变量</strong>的值来区分生产环境和开发环境。</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">不同的设置会导致不同的处理方式。</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">如果每次都通过命令行传递，不便于开发人员使用。</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">可以通过内置的 DefinePlugin 配置到prod两个文件内。</span>
+</p>
+
+<div class="codehilite code_lang_js  highlight"><pre><span></span><span class="kr">const</span> <span class="nx">webpack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">UglifyJSPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;uglifyjs-webpack-plugin&#39;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">merge</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack-merge&#39;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">common</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./webpack.common.js&#39;</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">merge</span><span class="p">(</span><span class="nx">common</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+    <span class="k">new</span> <span class="nx">UglifyJSPlugin</span><span class="p">(),</span>
+    <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">DefinePlugin</span><span class="p">({</span>
+      <span class="s1">&#39;NODE_ENV&#39;</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="s1">&#39;production&#39;</span><span class="p">)</span>
+    <span class="p">})</span>
+  <span class="p">]</span>
+<span class="p">})</span>
+</pre></div>
+
+<!--block_code_end-->
+<p class="md_block">
+    <span class="md_line">在程序源码中，可以通过如下代码处理生产环境的逻辑:</span>
+</p>
+
+<div class="codehilite code_lang_js  highlight"><pre><span></span> <span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">!==</span> <span class="s1">&#39;production&#39;</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Looks like we are in development mode!&#39;</span><span class="p">);</span>
+ <span class="p">}</span>
+</pre></div>
+
+<!--block_code_end-->
+<h2 id="toc_37">代码分离</h2>
+
+<blockquote>
+
+<p class="md_block">
+    <span class="md_line">https://doc.webpack-china.org/guides/code-splitting/</span>
+</p>
+
+</blockquote>
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">代码分割是webpack的关键能力，可以帮助我们将<strong>应用打包到多个chunk中</strong>，便于我们更好的控制加载过程、提高应用的加载速度。</span>
+</p>
+
+
+<ul>
+<li>可以按需加载或并行加载这些文件</li>
+<li>可以用于获取更小的 bundle</li>
+<li>可以控制资源加载优先级，如果使用合理，会极大影响加载时间。</li>
+</ul>
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">有三种方式帮助我们进行分割:</span>
+</p>
+
+
+<ul>
+<li>Entry Points: 通过entry进行手动分割.</li>
+<li>Prevent Duplication: 使用CommonsChunkPlugin提取重复的chunk.</li>
+<li>Dynamic Imports: 在模块中通过内联方法分割.</li>
+</ul>
+
+<h3 id="toc_38">Entry Points</h3>
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">最简单的分割方式, 在entry中配置不同的bundle入口: </span>
+</p>
+
+
+<ul>
+<li>项目结构如下</li>
+</ul>
+<img onerror="this.src='../../现代前端开发/_image/2018-01-19-01-36-15.jpg';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-19-01-36-15.jpg" alt="" title="" >
+<ul>
+<li>another-module.js</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span><span class="kr">import</span> <span class="nx">_</span> <span class="nx">from</span> <span class="s1">&#39;lodash&#39;</span><span class="p">;</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span>
+  <span class="nx">_</span><span class="p">.</span><span class="nx">join</span><span class="p">([</span><span class="s1">&#39;Another&#39;</span><span class="p">,</span> <span class="s1">&#39;module&#39;</span><span class="p">,</span> <span class="s1">&#39;loaded!&#39;</span><span class="p">],</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>webpack配置如下</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">HTMLWebpackPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;html-webpack-plugin&#39;</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">index</span><span class="o">:</span> <span class="s1">&#39;./src/index.js&#39;</span><span class="p">,</span>
+    <span class="nx">another</span><span class="o">:</span> <span class="s1">&#39;./src/another-module.js&#39;</span>
+  <span class="p">},</span>
+  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+    <span class="k">new</span> <span class="nx">HTMLWebpackPlugin</span><span class="p">({</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Code Splitting&#39;</span>
+    <span class="p">})</span>
+  <span class="p">],</span>
+  <span class="nx">output</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;[name].bundle.js&#39;</span><span class="p">,</span>
+    <span class="nx">path</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;dist&#39;</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>在执行打包后, 拆分为两个bundle</li>
+</ul>
+<img onerror="this.src='../../现代前端开发/_image/2018-01-19-01-38-03.jpg';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-19-01-38-03.jpg" alt="" title="" >
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">这种方法存在的<strong>缺点</strong>是:</span>
+</p>
+
+
+<ul>
+<li>多个chunk之间的重复引入没有处理, 两者都包含的公共模块的重复打包</li>
+<li>不够灵活，不能根据代码的结构进行动态调整, 新增分支需要手动修改配置文件</li>
+</ul>
+
+<h3 id="toc_39">防止重复(prevent duplication)</h3>
+
+<p class="md_block">
+    <span class="md_line"><strong>CommonsChunkPlugin</strong> 插件可以将公共的依赖模块提取到已有的入口 chunk 中，或者提取到一个新生成的 chunk。</span>
+</p>
+
+<div class="codehilite code_lang_js  highlight"><pre><span></span>  <span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
+  <span class="kr">const</span> <span class="nx">webpack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack&#39;</span><span class="p">);</span>
+  <span class="kr">const</span> <span class="nx">HTMLWebpackPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;html-webpack-plugin&#39;</span><span class="p">);</span>
+
+  <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">index</span><span class="o">:</span> <span class="s1">&#39;./src/index.js&#39;</span><span class="p">,</span>
+      <span class="nx">another</span><span class="o">:</span> <span class="s1">&#39;./src/another-module.js&#39;</span>
+    <span class="p">},</span>
+    <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+      <span class="k">new</span> <span class="nx">HTMLWebpackPlugin</span><span class="p">({</span>
+        <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Code Splitting&#39;</span>
+      <span class="p">}),</span>
+      <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">optimize</span><span class="p">.</span><span class="nx">CommonsChunkPlugin</span><span class="p">({</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;common&#39;</span> <span class="c1">// 指定公共 bundle 的名称。</span>
+      <span class="p">})</span>
+    <span class="p">],</span>
+    <span class="nx">output</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;[name].bundle.js&#39;</span><span class="p">,</span>
+      <span class="nx">path</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;dist&#39;</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+</pre></div>
+
+<!--block_code_end-->
+<p class="md_block md_has_block_below md_has_block_below_img">
+    <span class="md_line">CommonsChunkPlugin 插件<strong>将lodash分离到单独的 chunk</strong>，并且将其从 main bundle 中移除，减轻了大小。</span>
+</p>
+
+<img onerror="this.src='../../现代前端开发/_image/2018-01-19-01-41-01.jpg';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-19-01-41-01.jpg" alt="" title="" >
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">其他一些对于代码分离很有帮助的插件和 loaders：</span>
+</p>
+
+
+<ul>
+<li>ExtractTextPlugin: 用于将 CSS 从主应用程序中分离。</li>
+<li>bundle-loader: 用于分离代码和延迟加载生成的 bundle。</li>
+<li>promise-loader: 类似于 bundle-loader ，但是使用的是 promises。</li>
+</ul>
+
+<h3 id="toc_40">动态导入(dynamic imports)</h3>
+
+<p class="md_block">
+    <span class="md_line">借助ES2015的import()语法来标识动态加载。</span>
+</p>
+
+
+<p class="md_block md_has_block_below md_has_block_below_img">
+    <span class="md_line md_line_dom_embed"><img onerror="this.src='../../现代前端开发/_image/2018-01-19-01-45-23.jpg';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-19-01-45-23.jpg" alt="" title="" ><br /></span>
+    <span class="md_line md_line_dom_embed"><strong>在注释中使用了 webpackChunkName。这样做会导致我们的 bundle 被命名为 lodash.bundle.js ，而不是 [id].bundle.js</strong></span>
+</p>
+
+<img onerror="this.src='../../现代前端开发/_image/2018-01-19-01-47-20.jpg';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-19-01-47-20.jpg" alt="" title="" >
+<h3 id="toc_41">Bundle Analysis</h3>
+
+<p class="md_block">
+    <span class="md_line">分割代码后，可以通过工具来分析包的划分</span>
+</p>
+
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">官方分析工具 http://webpack.github.io/analyse</span>
+</p>
+
+
+<ul>
+<li>webpack-chart: Interactive pie chart for webpack stats.</li>
+<li>webpack-visualizer: Visualize and analyze your bundles to see which modules are taking up space and which might be duplicates.</li>
+<li>webpack-bundle-analyzer: A plugin and CLI utility that represents bundle content as convenient interactive zoomable treemap.</li>
+</ul>
+<img onerror="this.src='../../现代前端开发/_image/2018-01-19-01-49-36.jpg?r=60';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-19-01-49-36.jpg" style="width:60%" class="md_scaled_image"  alt="" title="" style="width:60%;">
+<h2 id="toc_42">Lazy Loading</h2>
+
+<p class="md_block">
+    <span class="md_line">延迟加载或者称作按需加载，在应用中通过逻辑来控制加载点。使得应用程序的初始化速度提高，带来更好的用户体验。</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">我们希望默认不加载print.js的包，当点击按钮的时候，才去<strong>动态加载</strong>，修改index.js中的逻辑:</span>
+</p>
+
+<div class="codehilite code_lang_js  highlight"><pre><span></span>  <span class="nx">btn</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="nx">e</span> <span class="o">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="cm">/* webpackChunkName: &quot;print&quot; */</span> <span class="s1">&#39;./print&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">module</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">printMe</span> <span class="o">=</span> <span class="nx">module</span><span class="p">.</span><span class="k">default</span>
+    <span class="nx">printMe</span><span class="p">()</span>
+  <span class="p">});</span>
+</pre></div>
+
+<!--block_code_end-->
+<p class="md_block md_has_block_below md_has_block_below_blockquote">
+    <span class="md_line md_line_dom_embed"><strong>通过注释，让webpack知道如何进行独立打包，并且在使用时，动态加载</strong></span>
+</p>
+
+
+<blockquote>
+
+<p class="md_block">
+    <span class="md_line">注意在webpack配置中，需要将print从entry中移除，否则会打包并在index.html中引入 output中需要给出chunk的命名规则，否则是按照数字id进行命名</span>
+</p>
+
+</blockquote>
+<div class="codehilite code_lang_js  highlight"><pre><span></span>  <span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">app</span><span class="o">:</span> <span class="s1">&#39;./src/index.js&#39;</span>
+  <span class="p">},</span>
+  <span class="nx">output</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;[name].bundle.js&#39;</span><span class="p">,</span>
+    <span class="nx">chunkFilename</span><span class="o">:</span> <span class="s1">&#39;[name].bundle.js&#39;</span><span class="p">,</span>    
+    <span class="nx">path</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;dist&#39;</span><span class="p">)</span>
+  <span class="p">},</span>
+</pre></div>
+
+<!--block_code_end-->
+<h2 id="toc_43">Caching</h2>
+
+<p class="md_block">
+    <span class="md_line">当应用被打包发布的时候，会使用dist目录下的内容，客户端访问应用时，会加载dist目录下的资源。</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">为了<strong>加快访问速度和节省带宽</strong>，浏览器会使用缓存技术减少不必要的下载。</span>
+</p>
+
+
+<p class="md_block">
+    <span class="md_line">我们可以借助webpack的配置和各种插件，来<strong>帮助浏览器识别</strong>未改变的文件。</span>
+</p>
+
+
+<h3 id="toc_44">Output Filenames</h3>
+
+<p class="md_block">
+    <span class="md_line">在output中，通过<strong>[chunkhash]</strong>命名文件</span>
+</p>
+
+<div class="codehilite code_lang_js  highlight"><pre><span></span>  <span class="nx">output</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;[name].[chunkhash].js&#39;</span><span class="p">,</span>
+    <span class="nx">chunkFilename</span><span class="o">:</span> <span class="s1">&#39;[name].[chunkhash].js&#39;</span><span class="p">,</span>    
+    <span class="nx">path</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;dist&#39;</span><span class="p">)</span>
+  <span class="p">},</span>
+</pre></div>
+
+<!--block_code_end-->
+<p class="md_block md_has_block_below md_has_block_below_img">
+    <span class="md_line">执行打包后发现，文件名中，追加了<strong>基于内容计算出来的hash码</strong>，当文件没有发生变化时，文件名保持不变。</span>
+</p>
+
+<img onerror="this.src='../../现代前端开发/_image/2018-01-23-23-10-41.jpg';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-23-23-10-41.jpg" alt="" title="" >
+<h3 id="toc_45">Extracting Boilerplate</h3>
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">借助 CommonsChunkPlugin 的帮助，将<strong>相对稳定的部分独立打包</strong>，尽量保持这个包的稳定，我们会:</span>
+</p>
+
+
+<ul>
+<li>提取webpack附加的代码模板</li>
+<li>提取三方件</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span>  <span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">app</span><span class="o">:</span> <span class="s1">&#39;./src/index.js&#39;</span><span class="p">,</span>
+    <span class="nx">vender</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s1">&#39;lodash&#39;</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+    <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">optimize</span><span class="p">.</span><span class="nx">CommonsChunkPlugin</span><span class="p">({</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;vender&#39;</span>
+    <span class="p">}),</span>
+    <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">optimize</span><span class="p">.</span><span class="nx">CommonsChunkPlugin</span><span class="p">({</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;runtime&#39;</span>
+    <span class="p">}),</span>
+  <span class="p">]</span>
+</pre></div>
+
+<!--block_code_end-->
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line md_line_dom_embed"><strong>注意:</strong></span>
+</p>
+
+
+<ul>
+<li>runtime需要给定一个，在entry中 <strong>没有出现过的</strong> 名字，插件会自动提取webpack的附加内容</li>
+<li>vender中包含三方件，并且插件配置 <strong>要在runtime之前</strong></li>
+</ul>
+
+<h3 id="toc_46">Module Identifiers</h3>
+
+<p class="md_block">
+    <span class="md_line">首先记录我们之前的打包结果:</span>
+</p>
+
+
+<pre><code>         print.575c0ed73ad5b58a2eb7.js  194 bytes       0  [emitted]         print
+           app.7383f6a1b5ac5b35d5eb.js     157 kB       1  [emitted]         app
+        vender.63e9981a8673418b3140.js    70.8 kB       2  [emitted]         vender
+       runtime.1abd54b5b199a2033d70.js    1.48 kB       3  [emitted]         runtime</code></pre>
+
+<!--block_code_end-->
+<p class="md_block md_has_block_below md_has_block_below_img">
+    <span class="md_line">我们<strong>删除</strong>index.js中对math模块的引用并重新打包:</span>
+</p>
+
+<img onerror="this.src='../../现代前端开发/_image/2018-01-23-23-13-30.jpg';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-23-23-13-30.jpg" alt="" title="" >
+<pre><code>         print.ad0ea900f35e8c87d8ac.js  194 bytes       0  [emitted]         print
+           app.652910fb7b51e94fb720.js     157 kB       1  [emitted]         app
+        vender.8c33d5ec260e6b2ca268.js    70.8 kB       2  [emitted]         vender
+       runtime.87bf998ccc0f7c3fb216.js    1.48 kB       3  [emitted]         runtime</code></pre>
+
+<!--block_code_end-->
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">结果发现，<strong>所有的hash结果都发生了变化</strong>，这与我们期望的是不相符的，原因是因为<strong>修改了引用顺序(math的依赖)，导致各个module的id发生了变化</strong>，结果导致所有文件都被刷新。我们并不希望未改变的文件也出现变化，导致浏览器需要刷新所有缓存。解决方案有几个:</span>
+</p>
+
+
+<ul>
+<li>
+<p class="md_block">
+    <span class="md_line">NamedModulesPlugin 相对来说打包时间更长</span>
+</p></li>
+<li>
+<p class="md_block">
+    <span class="md_line">HashedModuleIdsPlugin 推荐使用</span>
+</p></li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span>  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+    <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">HashedModuleIdsPlugin</span><span class="p">(),</span>    
+  <span class="p">]</span>
+</pre></div>
+
+<!--block_code_end-->
+<p class="md_block">
+    <span class="md_line">打包后对比两次的结果，只有修改的部分发生了变化，其余保持现状:</span>
+</p>
+
+
+<pre><code>         print.c4424bacece5a6a4f313.js  203 bytes       0  [emitted]         print
+           app.421317eb60fa42e6a16a.js     157 kB       1  [emitted]         app
+        vender.769acd3b5b746266db1c.js    70.8 kB       2  [emitted]         vender
+       runtime.86e12118465ad5e8b474.js    1.48 kB       3  [emitted]         runtime</code></pre>
+
+<!--block_code_end-->
+<hr>
+
+<pre><code>         print.c4424bacece5a6a4f313.js  203 bytes       0  [emitted]         print
+           app.233a67236e6777f58d22.js     157 kB       1  [emitted]         app
+        vender.769acd3b5b746266db1c.js    70.8 kB       2  [emitted]         vender
+       runtime.1d455a644fe47b800bba.js    1.48 kB       3  [emitted]         runtime</code></pre>
+
+<!--block_code_end-->
+<h2 id="toc_47">Shimming</h2>
+
+<p class="md_block md_has_block_below md_has_block_below_blockquote">
+    <span class="md_line">webpack 编译器(compiler)能够识别遵循 ES2015 模块语法、CommonJS 或 AMD 规范编写的模块。然而，一些第三方的库(library)可能会引用一些<strong>全局依赖</strong>（例如 jQuery 中的 $）。这些库也可能创建一些需要<strong>被导出的全局变量</strong>。这些“不符合规范的模块”就是 shimming 发挥作用的地方。</span>
+</p>
+
+
+<blockquote>
+
+<p class="md_block">
+    <span class="md_line">不推荐使用全局的东西！在 webpack 背后的整个概念是让前端开发更加模块化。也就是说，需要编写具有良好的封闭性(well contained)、彼此隔离的模块，以及不要依赖于那些隐含的依赖模块（例如，全局变量）。请只在必要的时候才使用本文所述的这些特性。</span>
+</p>
+
+</blockquote>
+
+<p class="md_block">
+    <span class="md_line">shimming 另外一个使用场景就是，当你希望 polyfill 浏览器功能以支持更多用户时。在这种情况下，你可能只想要将这些 polyfills <strong>提供给到需要修补(patch)的浏览器</strong>（也就是实现按需加载）。</span>
+</p>
+
+
+<h3 id="toc_48">shimming 全局变量</h3>
+
+<p class="md_block md_has_block_below md_has_block_below_img">
+    <span class="md_line">使用 ProvidePlugin 后，能够在通过 webpack 编译的每个模块中，<strong>通过访问一个变量来获取到 package 包</strong>。如果 webpack 知道这个变量在某个模块中被使用了，那么 webpack 将在最终 bundle 中引入我们给定的 package。让</span>
+</p>
+
+<img onerror="this.src='../../现代前端开发/_image/2018-01-24-00-01-35.jpg?r=69';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-24-00-01-35.jpg?r=69" alt="" title="" style="width:69%;"><img onerror="this.src='../../现代前端开发/_image/2018-01-24-00-01-51.jpg?r=70';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-24-00-01-51.jpg" style="width:70%" class="md_scaled_image"  alt="" title="" style="width:70%;">
+<blockquote>
+
+<p class="md_block">
+    <span class="md_line">如果你遇到了至少一处用到 lodash 变量的模块实例，那请你将 lodash package 包引入进来，并将其提供给需要用到它的模块。</span>
+</p>
+
+</blockquote>
+
+<p class="md_block">
+    <span class="md_line">还可以使用 ProvidePlugin 暴露某个<strong>模块中单个导出值</strong>，只需通过一个“数组路径”进行配置, 这样就能很好的与 tree shaking 配合，将 lodash 库中的其他没用到的部分去除。</span>
+</p>
+
+<div class="codehilite code_lang_js  highlight"><pre><span></span>    <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+      <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">ProvidePlugin</span><span class="p">({</span>
+        <span class="nx">join</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;lodash&#39;</span><span class="p">,</span> <span class="s1">&#39;join&#39;</span><span class="p">]</span>
+      <span class="p">})</span>
+    <span class="p">]</span>
+</pre></div>
+
+<!--block_code_end-->
+<h3 id="toc_49">细粒度 shimming</h3>
+
+<p class="md_block md_has_block_below md_has_block_below_img">
+    <span class="md_line">一些传统的模块依赖的 this 指向的是 window 对象。当模块运行在 CommonJS 环境下这将会变成一个问题，也就是说<strong>此时的 this 指向的是 module.exports</strong>。在这个例子中，你可以<strong>通过使用 imports-loader 覆写 this</strong>：</span>
+</p>
+
+<img onerror="this.src='../../现代前端开发/_image/2018-01-24-00-42-51.jpg?r=70';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-24-00-42-51.jpg" style="width:70%" class="md_scaled_image"  alt="" title="" style="width:70%;">
+<h3 id="toc_50">全局 exports</h3>
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">某个库(library)创建出一个全局变量，它期望用户使用这个变量。<strong>也许遇到过一个老旧的库(library)，和上面所展示的代码类似。</strong></span>
+</p>
+
+
+<ul>
+<li>src/globals.js</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span><span class="kd">var</span> <span class="nx">file</span> <span class="o">=</span> <span class="s1">&#39;blah.txt&#39;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">helpers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">test</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;test something&#39;</span><span class="p">);</span> <span class="p">},</span>
+  <span class="nx">parse</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;parse something&#39;</span><span class="p">);</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>可以使用 exports-loader，将一个全局变量作为一个普通的模块来导出。</li>
+</ul>
+<img onerror="this.src='../../现代前端开发/_image/2018-01-24-00-44-54.jpg?r=70';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-24-00-44-54.jpg" style="width:70%" class="md_scaled_image"  alt="" title="" style="width:70%;">
+<h3 id="toc_51">加载 polyfills</h3>
+
+<p class="md_block md_has_block_below md_has_block_below_ul">
+    <span class="md_line">polyfills 虽然是一种模块引入方式，但是并不推荐在主 bundle 中引入 polyfills，因为这不利于具备这些模块功能的现代浏览器用户，会使他们<strong>下载体积很大、但却不需要的脚本文件</strong>。</span>
+</p>
+
+
+<ul>
+<li>src/polyfills.js - 使用独立文件引入垫片</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span><span class="kr">import</span> <span class="s1">&#39;babel-polyfill&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="s1">&#39;whatwg-fetch&#39;</span><span class="p">;</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>webpack中打包为单独的bundle</li>
+</ul>
+<div class="codehilite code_lang_js  highlight"><pre><span></span>   <span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
+     <span class="nx">polyfills</span><span class="o">:</span> <span class="s1">&#39;./src/polyfills.js&#39;</span><span class="p">,</span>
+     <span class="nx">index</span><span class="o">:</span> <span class="s1">&#39;./src/index.js&#39;</span>
+   <span class="p">},</span>
+</pre></div>
+
+<!--block_code_end-->
+<ul>
+<li>在代码中添加一些逻辑，根据条件去加载新的 polyfills.bundle.js 文件。</li>
+</ul>
+<img onerror="this.src='../../现代前端开发/_image/2018-01-24-00-48-01.jpg?r=71';this.onerror=null;"  class="" src="/现代前端开发/_image/2018-01-24-00-48-01.jpg" style="width:71%" class="md_scaled_image"  alt="" title="" style="width:71%;">
+<blockquote>
+
+<p class="md_block">
+    <span class="md_line">https://doc.webpack-china.org/guides/<br /></span>
+    <span class="md_line">https://doc.webpack-china.org/concepts/<br /></span>
+    <span class="md_line">https://doc.webpack-china.org/configuration/<br /></span>
+    <span class="md_line">https://doc.webpack-china.org/api/</span>
+</p>
+
+</blockquote> </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script type="text/javascript" src="../asset/gitbook/app.js"></script>
+
+<script>require(["gitbook"], function (gitbook) {
+    var config = {"fontSettings": {"theme": null, "family": "sans", "size": 2}};
+    gitbook.start(config);
+});
+
+</script>
+
+
+
+
+
+</body>
+
+</html>
