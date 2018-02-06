@@ -1,19 +1,286 @@
 ---
 layout: post
-title:  "现代前端开发 - HTML5 & CSS3 & Flex布局 & WebSocket & Catch & HTTP2"
+title:  "现代前端开发 - WebSocket & Catch & HTTP2"
 date:   2018-01-25 23:11:58
 categories: 前端开发
 ---
 
-# HTML5
-
-# CSS3
-
-# Flex布局
-
 # WebSocket
 
+HTML5 WebSocket技术定义了客户端和服务器之间的**全双工通信通道**。避免了以往通过各种**hacks**方式的通信。
+
+## 历史
+
+在WebSocket技术出现之前，前端在处理一些**实时更新**的数据展现，例如：股票走势、位置信息、进度等业务场景时，往往通过：**要求用户不断刷新、通过定时器不停查询或者Comet的服务端推送**。
+
+### 方案1: 要求用户不断刷新
+这是一个**不可理喻的要求**，特别对于广泛的大众用户或者非IT从业者来说。也许只有专业的IT从业者才能够理解并忍受如此糟糕的用户体验。
+
+### 方案2: 轮询
+
+前端通过JS脚本**定时发送HTTP请求**，返回数据后更新界面显示。
+
+```js
+setInterval(() => {
+    fetch('url').then((response) => {
+        // update page
+    }) ;
+}, 5000); // every five seconds
+```
+
+轮询带来的问题：
+- 客户端无法预知**是否有新的数据**
+- 大量的**无效请求**增加带宽消耗
+- **厚重**的HTTP请求头，**频繁**的连接创建和断开
+
+### 方案3: 长轮询
+
+服务器对每个请求**保持一段时间的打开状态**，如果出现数据更新，会通过该连接发送信息，并关闭该连接。
+
+虽然在一定程度上**减少了连接次数**，但是服务端**保持连接会造成资源消耗**，而且**无法保证消息返回顺序**，同样难于管理和维护
+
+### 方案4: iframe流
+
+在页面中插入一个**隐藏的iframe**，利用其src属性在服务器和客户端之间**建立一条长链接**，服务器向iframe传输数据（通常是HTML，内有负责插入信息的javascript），来实时更新页面。 iframe流方式的优点是**浏览器兼容性好**
+
+
+![](./_image/2018-02-07-00-51-03.jpg)
+
+### 方案5: WebSocket
+
+在创建websocket通信时，客户端于服务器进行握手，**将HTTP协议升级为WebSocket协议**, 建立连接后**使用ws://或wss://前缀作为url**
+
+![](./_image/2018-02-07-00-53-35.jpg)
+
+- 数据格式比较轻量，性能开销小，通信高效。
+- 可以发送文本，也可以发送二进制数据。
+- 没有同源限制，客户端可以与任意服务器通信。
+
+## 实现
+
+### 服务端
+
+基于nodejs-websocket
+
+> https://github.com/sitegui/nodejs-websocket
+
+1. yarn add nodejs-websocket
+2. websocket-server.js
+
+```js
+const ws = require("nodejs-websocket")
+
+// Scream server example: "hi" -> "HI!!!"
+const server = ws.createServer(function (conn) {
+    console.log("New connection")
+    conn.on("text", function (str) {
+        console.log("Received " + str)
+        conn.sendText(str.toUpperCase() + "!!!")
+    })
+    conn.on("close", function (code, reason) {
+        console.log("Connection closed")
+    })
+}).listen(8001)
+```
+
+3. 启动服务: node websocket-server.js
+
+### 客户端
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket Client</title>
+</head>
+<body>
+    <script type="text/javascript">
+        let socket = null;
+
+        function createConnect() {
+            socket = new WebSocket('ws://localhost:8001')
+            bindEvents(socket)
+        }
+
+        function bindEvents(socket) {
+            socket.onopen = () => {
+                console.log('connected')
+            }
+
+            socket.onclose = () => {
+                console.log('disconnected')
+            }
+
+            socket.onerror = () => {
+                console.log('error')
+            }
+
+            socket.onmessage = (e) => {
+                console.log(`Received: ${e.data}`)
+            }
+        }
+
+        function sendMessage() {
+            const msg = document.getElementById('inputText').value
+            socket.send(msg)
+        }
+
+        window.onload = () => {
+            if (window.WebSocket) {
+                createConnect()
+            }
+        }
+    </script>
+
+    <div>
+        <input type="text" id="inputText" />
+        <input type="button" onclick="sendMessage()" value="Send"/>
+    </div>
+</body>
+</html>
+```
+
+### 握手时的请求信息
+
+![](./_image/2018-02-07-00-59-47.jpg)
+
+### 浏览器兼容性
+
+![](./_image/2018-02-07-01-03-08.jpg)
+
+### 应用方案: socket.io
+
+> https://socket.io/
+
+Socket.IO是一个完全由JavaScript实现、基于Node.js、支持WebSocket的协议用于实时通信、跨平台的开源框架，它包括了**客户端的JavaScript和服务器端的Node.js**。
+Socket.IO除了支持WebSocket通讯协议外，还支持许多种轮询（Polling）机制以及其它实时通信方式，并封装成了通用的接口，并且在服务端实现了这些实时机制的相应代码。
+Socket.IO实现的Polling通信机制**包括Adobe Flash Socket、AJAX长轮询、AJAX multipart streaming、持久Iframe、JSONP轮询等**。
+Socket.IO能够**根据浏览器对通讯机制的支持情况自动地选择最佳的方式**来实现网络实时应用。
+
+- server
+
+```js
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/index.html');
+});
+
+io.on('connection', function(socket){
+  console.log('a user connected');
+});
+
+http.listen(3000, function(){
+  console.log('listening on *:3000');
+});
+```
+
+- client
+
+```html
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+</script>
+```
+
+> http://www.ruanyifeng.com/blog/2017/05/websocket.html
+> http://blog.zhangruipeng.me/2015/10/22/Web-Connectivity/
+> https://developer.mozilla.org/zh-CN/docs/Web/API/WebSocket
+
 # Catch
+
+通过网络获取内容既**速度缓慢又开销巨大**。较大的响应需要在客户端与服务器之间进行多次往返通信，这会**延迟**浏览器获得和处理内容的时间，还会增加访问者的**流量费用**。因此，缓存并重复利用之前获取的资源的能力成为**性能优化**的一个关键方面。
+
+根本思路是: **减少请求, 缓解服务器端压力，提升性能**
+
+## 缓存的分类
+
+- 私有缓存(浏览器缓存) - 存储在浏览器, 只能用于**单独用户**
+- 共享缓存(代理缓存) - 存储在web代理服务器, 可以被**多个用户**使用
+
+
+![](./_image/2018-02-06-23-58-29.jpg)
+
+## 缓存控制
+
+### Cache-control
+
+HTTP/1.1定义的 Cache-Control 头用来区分对缓存机制的支持情况， 请求头和响应头都支持这个属性。通过它提供的不同的值来定义缓存策略。
+
+> 在早期使用Expires字段来控制缓存, 但是因为Expires返回的是绝对时间, 当服务器时间与客户端时间不一致时会导致缓存控制混乱
+> Expires: Wed, 21 Oct 2015 07:28:00 GMT
+
+#### 私有缓存和公共缓存
+
+- "public" 指令表示该响应可以被**任何中间人**（译者注：比如中间代理、CDN等）缓存。
+- "private" 则表示该响应是专用于某**单个用户**的，中间人不能缓存此响应，该响应只能应用于**浏览器私有缓存**中。
+
+```
+Cache-Control: private
+Cache-Control: public
+```
+
+#### 禁止缓存/确认缓存
+
+- no-store - 缓存中**不得存储任何**关于客户端请求和服务端响应的内容。每次由客户端发起的请求**都会下载完整的**响应内容。
+- no-cache - 每次有请求发出时，缓存会将此请求发到服务器，服务器端会**验证请求中所描述的缓存是否过期**，若未过期则**返回304**，则缓存才**使用本地缓存副本**。
+- must-revalidate - **本地副本过期前，可以使用本地副本**(与no-cache的区别)；本地副本一旦过期，必须去源服务器进行有效性校验。
+
+
+```
+Cache-Control: no-store
+Cache-Control: no-cache
+Cache-Control: must-revalidate
+```
+
+#### 缓存过期机制
+
+最重要的指令是 **"max-age=<seconds>"**，表示资源能够被缓存（保持新鲜）的最大时间。
+相对Expires而言，max-age是距离请求发起的时间的**秒数(相对时间)**。
+
+```
+Cache-Control: max-age=31536000
+```
+
+> 对于不含max-age属性的请求则会去查看是否包含Expires属性，通过比较Expires的值和头里面Date属性的值来判断是否缓存还有效。
+> 如果max-age和expires属性都没有，找找头里的Last-Modified信息。如果有，缓存的寿命就等于头里面Date的值减去Last-Modified的值除以10
+
+### 缓存验证 - ETags/Last-Modified
+
+ETags是缓存的一种**强校验器**, 由服务器生成并返回的随机令牌, 通常是文件**内容的哈希值或某个其他指纹**, 如果资源请求的响应头里含有ETag, 客户端可以在后续的所有请求的头中带上 If-None-Match 头来验证缓存。
+
+
+![](./_image/2018-02-07-00-33-07.jpg?r=60)
+
+
+Last-Modified 响应头可以作为一种**弱校验器**。如果响应头里含有这个信息，客户端可以在后续的一次请求中带上 If-Modified-Since 来验证缓存。
+
+### 例子
+
+
+![](./_image/2018-02-07-00-34-22.jpg)
+
+- HTML 被标记为“no-cache”，这意味着浏览器在**每次请求时都始终会重新验证文档，并在内容变化时获取最新版本**。此外，在 HTML 标记内，**在 CSS 和 JavaScript 的url中嵌入指纹**：如果这些文件的内容发生变化，网页的 HTML 也会随之改变，并会下载 HTML 响应的新副本。
+- **允许浏览器和中间缓存（例如 CDN）缓存 CSS，并将 CSS 设置为 1 年后到期**。请注意，您可以放心地使用 1 年的“远期过期”，因为您在文件名中嵌入了文件的指纹：CSS 更新时网址也会随之变化。
+- JavaScript 同样设置为 1 年后到期，但标记为 private，这或许是因为它包含的某些**用户私人数据是 CDN 不应缓存的**。
+- 图像缓存时不包含版本或唯一指纹，并设置为 1 天后到期。
+
+## 缓存校验过程
+
+
+![](./_image/2018-02-07-00-36-37.png)
+## 缓存策略定义方式
+
+![](./_image/2018-02-07-00-38-03.jpg)
+
+
+> https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=zh-cn
+> https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ
+> http://www.cnblogs.com/chyingp/p/no-cache-vs-must-revalidate.html
 
 # HTTP2
 
